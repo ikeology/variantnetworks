@@ -17,7 +17,6 @@ function conditional() {
 }
 
 function evalNumber() {
-
     let inputValue = parseInt(prompt("Enter any five-digit number without commas"));
     if ( inputValue > 99999 || inputValue < 10000 ) {
         alert(inputValue + "is not a valid 5-digit number. Please try again")
