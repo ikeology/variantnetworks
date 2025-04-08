@@ -26,4 +26,15 @@ function evalNumber() {
     } else {
         alert(`${inputValue} is an odd number`)
     };
+
+  function favoriteMusician() {
+    let inputValue = prompt("Who is your favorite musician?");
+    if (inputValue === "Taylor Swift") {
+        alert("Correct, Taylor Swift is our favorite musician!");
+    } else {
+        alert("No, that is incorrect. Your favorite musician is Taylor Swift, by way of folklore.");
+    }
 };
+
+
+
