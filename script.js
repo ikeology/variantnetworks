@@ -1,4 +1,4 @@
-import StarryBackground from './starry background.svelte';
+import StarryBackground from './StarryBackground.svelte';
 
 const app = new StarryBackground({
   target: document.body, // Append it to the body or any specific target element
