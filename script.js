@@ -1,3 +1,12 @@
+import StarryBackground from './starry background.svelte';
+
+const app = new StarryBackground({
+  target: document.body, // Append it to the body or any specific target element
+});
+
+export default app;
+
+
 function hello() {
     let name = prompt("What is your name?");
     if (name) {
