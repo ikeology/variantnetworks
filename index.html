@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+
+  <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Variant Networks</title>
-  <link rel="stylesheet" href="build/bundle.css">
+  
 </head>
 <body>
   <h1 style="text-align: center; margin-top: 20%;">Meshing All Over The World</h1>
@@ -18,7 +19,26 @@
     </button>
   </center>
   
-  <script src="build/bundle.js"></script>
+<script>
+    const { compile } = svelte;
+    const target = document.body;
+
+    const StarryBackground = compile(`
+      <script>
+        // Your script here
+      </script>
+
+      <style>
+        /* Your styles here */
+      </style>
+
+      <div class="starry-background">
+        <!-- Your markup here -->
+      </div>
+    `).js.code;
+
+    new Function('target', StarryBackground)(target);
+  </script>
   <script src="script.js"></script>
   <p id="greeting"></p>
 </body>
