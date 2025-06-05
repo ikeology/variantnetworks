@@ -113,17 +113,9 @@ To remove old authorized keys:
 rm ~/.ssh/authorized_keys
 ```
 
----
+Lessons Learned:
 
-**End of guide.**
-
-```
-
-You can copy and paste this directly into VS Code — the fenced triple backticks with `bash` ensure your commands show up as code blocks and are GitHub-friendly. Let me know if you want me to add anything else!
-```
-
-Lesson Learned:
-
-- it's worth being able to seamlessly SSH into the pi otherwise you run into issue like not being able to copy and paste into terminal,
-  --- you'll need to upload files or folder from some program, and if you cant get into the pi, then it becomes an issue.
-  --- my thought is to have a wifi source of truth which will be my iphone wifi for now.
+- during setup the name of the pi in the imager is important it defines how my mac will identify the server.
+- SSH is annoying, but still worth figuring out because it makes the rest of the setup process seamless.
+- Connecting my Mac and Pi to my phone hotspot is a good workaround to getting into the pi.
+- Little problem cost big time, but its worth figuring out whats wrong now while I have free chatGPT and time to play vs later when these things aren't available.
