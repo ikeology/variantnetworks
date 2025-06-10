@@ -33,7 +33,7 @@ ls ~/.ssh
 ```
 ````
 
-Look for your public key file, usually `id_ed25519.pub`, then display it:
+Look for your public key file, usually `id_ed25519.pub`, then call the public SSH key directly using the following command:
 
 ```bash
 cat ~/.ssh/id_ed25519.pub
@@ -115,7 +115,8 @@ rm ~/.ssh/authorized_keys
 
 Lessons Learned:
 
-- during setup the name of the pi in the imager is important it defines how my mac will identify the server.
+- once the pi is plugged in, the best way to check for it is by pinging `ping raspberrypi.local` this should provide the IP addresses for any Pi on the same wifi or ethernet network.
+- during setup the name of the pi in the imager is important. It defines how the mac will identify the server.
 - SSH is annoying, but still worth figuring out because it makes the rest of the setup process seamless.
 - Connecting my Mac and Pi to my phone hotspot is a good workaround to getting into the pi.
 - Little problem cost big time, but its worth figuring out whats wrong now while I have free chatGPT and time to play vs later when these things aren't available.
