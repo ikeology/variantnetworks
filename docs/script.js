@@ -64,12 +64,4 @@ window.addEventListener("resize", () => {
   canvas.height = window.innerHeight;
 });
 
-// Greeting
-function hello() {
-  let name = prompt("What is your name?");
-  if (name) {
-    document.getElementById("greeting").innerHTML = `hey yawl, ${name}!`;
-  }
-}
-
 hello();
