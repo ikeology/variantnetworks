@@ -3,46 +3,49 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Variant Networks — Urban Mesh Infrastructure</title>
+    <title>Variant Networks — Turn Your Building Into a Network</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      :root {
-        --bg: #0a0a0f;
-        --bg2: #0f0f1a;
-        --bg3: #13131f;
-        --surface: #16161f;
-        --surface2: #1c1c2a;
-        --border: rgba(255, 255, 255, 0.07);
-        --border2: rgba(255, 255, 255, 0.12);
-        --text: #f0f0f8;
-        --text2: #9090b0;
-        --text3: #5a5a7a;
-        --accent: #4f7cff;
-        --accent2: #7b5ea7;
-        --accent3: #2dd4bf;
-        --accent-dim: rgba(79, 124, 255, 0.12);
-        --accent-dim2: rgba(45, 212, 191, 0.1);
-        --font: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-        --mono: "JetBrains Mono", "Fira Code", monospace;
-      }
-      * {
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
         margin: 0;
         padding: 0;
-        box-sizing: border-box;
       }
+
+      :root {
+        --midnight: #0d1b2a;
+        --midnight-mid: #152338;
+        --orange: #c95e1a;
+        --orange-light: #e07030;
+        --orange-subtle: rgba(201, 94, 26, 0.1);
+        --white: #ffffff;
+        --off-white: #f7f8fa;
+        --text: #1a2332;
+        --text-muted: #6b7a8d;
+        --border: #e2e7ee;
+        --font-display: "Manrope", sans-serif;
+        --font-body: "Inter", sans-serif;
+      }
+
       html {
         scroll-behavior: smooth;
       }
+
       body {
-        background: var(--bg);
+        position: relative;
+        z-index: 1;
+        background: var(--white);
         color: var(--text);
-        font-family: var(--font);
+        font-family: var(--font-body);
         font-size: 16px;
         line-height: 1.6;
-        overflow-x: hidden;
-      }
-      a {
-        color: inherit;
-        text-decoration: none;
+        -webkit-font-smoothing: antialiased;
       }
 
       /* NAV */
@@ -55,812 +58,864 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0 2.5rem;
-        height: 64px;
-        background: rgba(10, 10, 15, 0.85);
-        backdrop-filter: blur(20px);
+        padding: 0 6%;
+        height: 68px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(12px);
         border-bottom: 1px solid var(--border);
       }
-      .nav-logo {
-        font-size: 1.05rem;
-        font-weight: 600;
+
+      .wordmark {
+        font-family: var(--font-display);
+        font-size: 1.15rem;
+        font-weight: 800;
         letter-spacing: -0.02em;
-        color: var(--text);
+        color: var(--midnight);
+        text-decoration: none;
         display: flex;
         align-items: center;
         gap: 10px;
       }
-      .nav-logo-mark {
-        width: 28px;
-        height: 28px;
-        background: var(--accent);
-        border-radius: 6px;
+
+      .wordmark-icon {
+        width: 34px;
+        height: 34px;
+        background: var(--orange);
+        border-radius: 7px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 0.75rem;
-        font-weight: 700;
-        color: #fff;
       }
+
+      .wordmark-icon svg {
+        width: 18px;
+        height: 18px;
+        fill: none;
+        stroke: white;
+        stroke-width: 2;
+        stroke-linecap: round;
+      }
+
       .nav-links {
         display: flex;
-        gap: 2rem;
-        list-style: none;
+        align-items: center;
+        gap: 32px;
       }
+
       .nav-links a {
         font-size: 0.875rem;
-        color: var(--text2);
+        font-weight: 500;
+        color: var(--text-muted);
+        text-decoration: none;
         transition: color 0.2s;
       }
+
       .nav-links a:hover {
         color: var(--text);
       }
+
       .nav-cta {
-        font-size: 0.875rem;
-        padding: 0.5rem 1.25rem;
-        background: var(--accent);
-        color: #fff;
-        border-radius: 8px;
-        transition: opacity 0.2s, transform 0.15s;
-        font-weight: 500;
+        background: var(--orange);
+        color: white !important;
+        padding: 9px 22px;
+        border-radius: 6px;
+        font-weight: 600 !important;
+        transition: background 0.2s !important;
       }
+
       .nav-cta:hover {
-        opacity: 0.88;
-        transform: translateY(-1px);
+        background: var(--orange-light) !important;
+        color: white !important;
       }
 
       /* HERO */
       .hero {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 8rem 2rem 6rem;
+        padding: 140px 6% 80px;
+        background: var(--off-white);
         position: relative;
         overflow: hidden;
       }
-      #hero-canvas {
-        position: absolute;
-        inset: 0;
-        z-index: 0;
-        opacity: 0.55;
+
+      .hero-inner {
+        max-width: 1140px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 72px;
+        align-items: center;
       }
-      .hero-badge {
+
+      .hero-eyebrow {
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        padding: 0.375rem 1rem;
-        background: var(--accent-dim);
-        border: 1px solid rgba(79, 124, 255, 0.25);
-        border-radius: 100px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--orange);
+        margin-bottom: 20px;
+      }
+
+      .hero-eyebrow::before {
+        content: "";
+        width: 20px;
+        height: 2px;
+        background: var(--orange);
+        display: inline-block;
+      }
+
+      h1 {
+        font-family: var(--font-display);
+        font-size: clamp(2.2rem, 4vw, 3.4rem);
+        font-weight: 800;
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+        color: var(--midnight);
+        margin-bottom: 22px;
+      }
+
+      h1 em {
+        font-style: normal;
+        color: var(--orange);
+      }
+
+      .hero-sub {
+        font-size: 1.05rem;
+        color: var(--text-muted);
+        line-height: 1.75;
+        margin-bottom: 36px;
+        max-width: 480px;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .btn-primary {
+        background: var(--orange);
+        color: white;
+        border: none;
+        padding: 13px 26px;
+        border-radius: 7px;
+        font-size: 0.92rem;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background 0.2s, transform 0.15s;
+        display: inline-block;
+        font-family: var(--font-body);
+      }
+
+      .btn-primary:hover {
+        background: var(--orange-light);
+        transform: translateY(-1px);
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: var(--text);
+        border: 1.5px solid var(--border);
+        padding: 13px 26px;
+        border-radius: 7px;
+        font-size: 0.92rem;
+        font-weight: 500;
+        cursor: pointer;
+        text-decoration: none;
+        transition: border-color 0.2s, transform 0.15s;
+        display: inline-block;
+        font-family: var(--font-body);
+      }
+
+      .btn-outline:hover {
+        border-color: #aab;
+        transform: translateY(-1px);
+      }
+
+      /* Hero image */
+      .hero-image-wrap {
+        position: relative;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 24px 64px rgba(13, 27, 42, 0.14);
+      }
+
+      .hero-image-wrap img {
+        width: 100%;
+        height: 420px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .hero-badge {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(8px);
+        border-radius: 10px;
+        padding: 14px 18px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+      }
+
+      .badge-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #22c55e;
+        box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+        flex-shrink: 0;
+      }
+
+      .badge-text {
         font-size: 0.8rem;
-        color: #8ab4ff;
-        margin-bottom: 2rem;
+        font-weight: 600;
+        color: var(--midnight);
+        line-height: 1.3;
+      }
+
+      .badge-sub {
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        font-weight: 400;
+      }
+
+      /* PROOF STRIP */
+      .proof-strip {
+        background: var(--midnight);
+        padding: 18px 6%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .proof-label {
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.45);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .proof-sep {
+        width: 1px;
+        height: 16px;
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .proof-item {
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      /* SECTIONS */
+      section {
+        padding: 96px 6%;
+      }
+
+      .section-inner {
+        max-width: 1140px;
+        margin: 0 auto;
+      }
+
+      .section-eyebrow {
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--orange);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .section-eyebrow::before {
+        content: "";
+        width: 16px;
+        height: 2px;
+        background: var(--orange);
+      }
+
+      h2 {
+        font-family: var(--font-display);
+        font-size: clamp(1.7rem, 2.8vw, 2.4rem);
+        font-weight: 800;
+        letter-spacing: -0.025em;
+        line-height: 1.15;
+        color: var(--midnight);
+        margin-bottom: 14px;
+      }
+
+      .section-sub {
+        font-size: 1rem;
+        color: var(--text-muted);
+        max-width: 520px;
+        line-height: 1.75;
+        margin-bottom: 52px;
+      }
+
+      /* PROBLEM / SOLUTION */
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+      }
+
+      .col-card {
+        padding: 44px 40px;
+        background: var(--off-white);
+      }
+
+      .col-card.solution {
+        background: var(--midnight);
+        border-left: 3px solid var(--orange);
+      }
+
+      .col-label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 18px;
+      }
+
+      .col-label.sol {
+        color: var(--orange);
+      }
+
+      .col-card h3 {
+        font-family: var(--font-display);
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 14px;
+        line-height: 1.3;
+        color: var(--midnight);
+      }
+
+      .col-card.solution h3 {
+        color: white;
+      }
+
+      .col-card p {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        line-height: 1.75;
+      }
+      .col-card.solution p {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      /* AUDIENCE CARDS */
+      .audience-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+
+      .audience-card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+        transition: box-shadow 0.2s, border-color 0.2s;
+      }
+
+      .audience-card:hover {
+        box-shadow: 0 8px 32px rgba(13, 27, 42, 0.1);
+        border-color: rgba(201, 94, 26, 0.3);
+      }
+
+      .card-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .card-body {
         position: relative;
         z-index: 1;
+        padding: 32px 30px;
       }
-      .hero-badge-dot {
+
+      .card-icon {
+        width: 42px;
+        height: 42px;
+        background: var(--orange-subtle);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 16px;
+      }
+
+      .card-icon svg {
+        width: 20px;
+        height: 20px;
+        stroke: var(--orange);
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .audience-card h3 {
+        font-family: var(--font-display);
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--midnight);
+        margin-bottom: 8px;
+      }
+
+      .card-desc {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        margin-bottom: 22px;
+        line-height: 1.65;
+      }
+
+      .benefit-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+      }
+
+      .benefit-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: 0.88rem;
+        color: var(--text);
+        line-height: 1.5;
+      }
+
+      .benefit-list li::before {
+        content: "";
         width: 6px;
         height: 6px;
         border-radius: 50%;
-        background: var(--accent);
-        animation: pulse 2s ease-in-out infinite;
-      }
-      @keyframes pulse {
-        0%,
-        100% {
-          opacity: 1;
-          transform: scale(1);
-        }
-        50% {
-          opacity: 0.5;
-          transform: scale(0.8);
-        }
-      }
-      .hero h1 {
-        font-size: clamp(2.8rem, 6vw, 5rem);
-        font-weight: 700;
-        letter-spacing: -0.04em;
-        line-height: 1.05;
-        max-width: 820px;
-        position: relative;
-        z-index: 1;
-        margin-bottom: 1.75rem;
-      }
-      .hero h1 .gradient-text {
-        background: linear-gradient(
-          135deg,
-          #4f7cff 0%,
-          #7b5ea7 50%,
-          #2dd4bf 100%
-        );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-      .hero-sub {
-        font-size: 1.2rem;
-        color: var(--text2);
-        max-width: 580px;
-        line-height: 1.65;
-        position: relative;
-        z-index: 1;
-        margin-bottom: 3rem;
-      }
-      .hero-actions {
-        display: flex;
-        gap: 1rem;
-        flex-wrap: wrap;
-        justify-content: center;
-        position: relative;
-        z-index: 1;
-      }
-      .btn-primary {
-        padding: 0.875rem 2rem;
-        background: var(--accent);
-        color: #fff;
-        border-radius: 10px;
-        font-size: 0.95rem;
-        font-weight: 600;
-        transition: transform 0.15s, opacity 0.2s;
-        border: none;
-        cursor: pointer;
-      }
-      .btn-primary:hover {
-        transform: translateY(-2px);
-        opacity: 0.9;
-      }
-      .btn-ghost {
-        padding: 0.875rem 2rem;
-        background: transparent;
-        color: var(--text);
-        border-radius: 10px;
-        font-size: 0.95rem;
-        font-weight: 500;
-        border: 1px solid var(--border2);
-        cursor: pointer;
-        transition: background 0.2s, transform 0.15s;
-      }
-      .btn-ghost:hover {
-        background: var(--surface);
-        transform: translateY(-2px);
-      }
-      .hero-stats {
-        display: flex;
-        gap: 3rem;
-        margin-top: 5rem;
-        position: relative;
-        z-index: 1;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      .stat-item {
-        text-align: center;
-      }
-      .stat-num {
-        font-size: 2rem;
-        font-weight: 700;
-        letter-spacing: -0.04em;
-        color: var(--text);
-      }
-      .stat-label {
-        font-size: 0.8rem;
-        color: var(--text3);
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        margin-top: 2px;
+        background: var(--orange);
+        flex-shrink: 0;
+        margin-top: 6px;
       }
 
-      /* SECTION BASE */
-      section {
-        padding: 7rem 2rem;
+      /* HOW IT WORKS */
+      .how-bg {
+        background: var(--off-white);
       }
-      .container {
-        max-width: 1120px;
-        margin: 0 auto;
+
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
       }
-      .section-tag {
-        display: inline-flex;
+
+      .step {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 36px 30px;
+      }
+
+      .step-num {
+        width: 44px;
+        height: 44px;
+        border-radius: 8px;
+        border: 2px solid var(--orange-subtle);
+        background: var(--orange-subtle);
+        display: flex;
         align-items: center;
-        gap: 6px;
-        font-size: 0.75rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
-        color: var(--accent);
-        margin-bottom: 1.25rem;
+        justify-content: center;
+        font-family: var(--font-display);
+        font-size: 1rem;
+        font-weight: 800;
+        color: var(--orange);
+        margin-bottom: 18px;
       }
-      .section-tag::before {
-        content: "";
-        width: 16px;
-        height: 1px;
-        background: var(--accent);
-      }
-      h2.section-title {
-        font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+
+      .step h3 {
+        font-family: var(--font-display);
+        font-size: 1.05rem;
         font-weight: 700;
-        letter-spacing: -0.035em;
-        line-height: 1.15;
-        margin-bottom: 1.25rem;
+        color: var(--midnight);
+        margin-bottom: 10px;
       }
-      .section-desc {
-        font-size: 1.1rem;
-        color: var(--text2);
-        max-width: 560px;
+
+      .step p {
+        font-size: 0.9rem;
+        color: var(--text-muted);
         line-height: 1.7;
       }
 
-      /* WHY MESH */
-      .why-mesh {
-        background: var(--bg);
+      /* MESH EXPLAINER */
+      .mesh-section {
+        background: var(--midnight);
+        padding: 96px 6%;
       }
-      .why-grid {
+
+      .mesh-inner {
+        max-width: 1140px;
+        margin: 0 auto;
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 5rem;
+        gap: 80px;
         align-items: center;
-        margin-top: 4rem;
       }
-      .mesh-visual {
-        position: relative;
-        height: 420px;
+
+      .mesh-inner .section-eyebrow {
+        color: var(--orange);
       }
-      #mesh-canvas {
-        width: 100%;
-        height: 100%;
-        border-radius: 16px;
+      .mesh-inner .section-eyebrow::before {
+        background: var(--orange);
       }
-      .mesh-features {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
+      .mesh-inner h2 {
+        color: white;
       }
+      .mesh-inner .section-sub {
+        color: rgba(255, 255, 255, 0.5);
+        margin-bottom: 32px;
+      }
+
       .mesh-feature {
         display: flex;
-        gap: 1rem;
         align-items: flex-start;
+        gap: 14px;
+        margin-bottom: 22px;
       }
-      .mesh-icon {
-        width: 44px;
-        height: 44px;
-        flex-shrink: 0;
-        background: var(--surface2);
-        border: 1px solid var(--border);
-        border-radius: 10px;
+
+      .mesh-feature-icon {
+        width: 36px;
+        height: 36px;
+        background: rgba(201, 94, 26, 0.15);
+        border-radius: 7px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.2rem;
+        flex-shrink: 0;
       }
-      .mesh-feature-text h3 {
-        font-size: 1rem;
+
+      .mesh-feature-icon svg {
+        width: 16px;
+        height: 16px;
+        stroke: var(--orange);
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+      }
+
+      .mesh-feature h4 {
+        font-size: 0.92rem;
         font-weight: 600;
-        margin-bottom: 0.3rem;
-        letter-spacing: -0.02em;
+        color: white;
+        margin-bottom: 3px;
       }
-      .mesh-feature-text p {
-        font-size: 0.9rem;
-        color: var(--text2);
+
+      .mesh-feature p {
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.45);
         line-height: 1.6;
       }
 
-      /* USE CASES */
-      .use-cases {
-        background: var(--bg2);
-      }
-      .cases-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        margin-bottom: 3.5rem;
-        flex-wrap: wrap;
-        gap: 2rem;
-      }
-      .cases-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.5px;
-        background: var(--border);
-        border-radius: 16px;
-        overflow: hidden;
-      }
-      .case-card {
-        background: var(--bg2);
-        padding: 2.5rem 2rem;
+      .mesh-visual {
         position: relative;
+        border-radius: 14px;
         overflow: hidden;
-        transition: background 0.3s;
-      }
-      .case-card:hover {
-        background: var(--surface);
-      }
-      .case-card::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 2px;
-        opacity: 0;
-        transition: opacity 0.3s;
-      }
-      .case-card:hover::before {
-        opacity: 1;
-      }
-      .case-card:nth-child(1)::before {
-        background: var(--accent);
-      }
-      .case-card:nth-child(2)::before {
-        background: var(--accent2);
-      }
-      .case-card:nth-child(3)::before {
-        background: var(--accent3);
-      }
-      .case-number {
-        font-family: var(--mono);
-        font-size: 0.7rem;
-        color: var(--text3);
-        margin-bottom: 1.5rem;
-        letter-spacing: 0.08em;
-      }
-      .case-icon {
-        font-size: 2rem;
-        margin-bottom: 1.25rem;
-        display: block;
-      }
-      .case-card h3 {
-        font-size: 1.15rem;
-        font-weight: 600;
-        letter-spacing: -0.025em;
-        margin-bottom: 0.75rem;
-      }
-      .case-card p {
-        font-size: 0.875rem;
-        color: var(--text2);
-        line-height: 1.65;
-        margin-bottom: 1.5rem;
-      }
-      .case-metrics {
-        display: flex;
-        gap: 1.5rem;
-        padding-top: 1.25rem;
-        border-top: 1px solid var(--border);
-      }
-      .case-metric {
-      }
-      .case-metric-val {
-        font-size: 1.3rem;
-        font-weight: 700;
-        letter-spacing: -0.04em;
-        color: var(--text);
-      }
-      .case-metric-key {
-        font-size: 0.72rem;
-        color: var(--text3);
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
       }
 
-      /* DEPLOYMENT — GARAGE */
-      .deployment {
-        background: var(--bg);
-      }
-      .deploy-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 5rem;
-        align-items: center;
-        margin-top: 4rem;
-      }
-      .deploy-diagram {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        padding: 2.5rem;
-        position: relative;
-        overflow: hidden;
-      }
-      .deploy-diagram-title {
-        font-family: var(--mono);
-        font-size: 0.7rem;
-        color: var(--text3);
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        margin-bottom: 2rem;
-      }
-      #garage-canvas {
+      .mesh-visual img {
         width: 100%;
-        height: 260px;
-      }
-      .deploy-specs {
-        margin-top: 1.5rem;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
-      }
-      .spec-item {
-        background: var(--bg3);
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        padding: 1rem 1.25rem;
-      }
-      .spec-val {
-        font-size: 1.4rem;
-        font-weight: 700;
-        letter-spacing: -0.04em;
-        color: var(--text);
-        line-height: 1;
-        margin-bottom: 4px;
-      }
-      .spec-key {
-        font-size: 0.72rem;
-        color: var(--text3);
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-      }
-      .deploy-content {
-      }
-      .deploy-steps {
-        display: flex;
-        flex-direction: column;
-        gap: 0;
-        margin-top: 2.5rem;
-      }
-      .deploy-step {
-        display: flex;
-        gap: 1.25rem;
-        padding-bottom: 2rem;
-        position: relative;
-      }
-      .deploy-step:not(:last-child)::before {
-        content: "";
-        position: absolute;
-        left: 15px;
-        top: 32px;
-        width: 1px;
-        bottom: 0;
-        background: var(--border);
-      }
-      .step-num {
-        width: 32px;
-        height: 32px;
-        flex-shrink: 0;
-        border-radius: 50%;
-        background: var(--surface2);
-        border: 1px solid var(--border2);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: var(--accent);
-        font-family: var(--mono);
-        z-index: 1;
-      }
-      .step-text h4 {
-        font-size: 0.95rem;
-        font-weight: 600;
-        margin-bottom: 0.25rem;
-        letter-spacing: -0.02em;
-      }
-      .step-text p {
-        font-size: 0.85rem;
-        color: var(--text2);
-        line-height: 1.55;
+        height: 380px;
+        object-fit: cover;
+        display: block;
+        opacity: 0.85;
       }
 
-      /* TECH PHILOSOPHY */
-      .philosophy {
-        background: var(--bg2);
-      }
-      .phil-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5px;
-        background: var(--border);
-        border-radius: 16px;
+      /* CASE STUDY */
+      .case-study {
+        background: var(--off-white);
+        border: 1px solid var(--border);
+        border-radius: 14px;
         overflow: hidden;
-        margin-top: 3.5rem;
-      }
-      .phil-card {
-        background: var(--bg2);
-        padding: 2.5rem;
-        transition: background 0.3s;
-      }
-      .phil-card:hover {
-        background: var(--surface);
-      }
-      .phil-card-tag {
-        font-family: var(--mono);
-        font-size: 0.65rem;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--text3);
-        margin-bottom: 1rem;
-      }
-      .phil-card h3 {
-        font-size: 1.25rem;
-        font-weight: 600;
-        letter-spacing: -0.03em;
-        margin-bottom: 0.75rem;
-      }
-      .phil-card p {
-        font-size: 0.875rem;
-        color: var(--text2);
-        line-height: 1.7;
-      }
-      .code-snippet {
-        margin-top: 1.5rem;
-        background: var(--bg);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        padding: 1rem 1.25rem;
-        font-family: var(--mono);
-        font-size: 0.72rem;
-        color: var(--text3);
-        line-height: 1.8;
-      }
-      .code-snippet .kw {
-        color: #7b5ea7;
-      }
-      .code-snippet .str {
-        color: #2dd4bf;
-      }
-      .code-snippet .num {
-        color: #4f7cff;
-      }
-      .code-snippet .cm {
-        color: #3a3a5a;
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
       }
 
-      /* VISION */
-      .vision {
-        background: var(--bg);
-        padding: 8rem 2rem;
-      }
-      .vision-inner {
-        max-width: 1120px;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 6rem;
-        align-items: center;
-      }
-      .vision-content h2 {
-        font-size: clamp(1.9rem, 3vw, 2.6rem);
-        font-weight: 700;
-        letter-spacing: -0.04em;
-        line-height: 1.15;
-        margin-bottom: 1.5rem;
-      }
-      .vision-content p {
-        font-size: 1rem;
-        color: var(--text2);
-        line-height: 1.75;
-        margin-bottom: 1.25rem;
-      }
-      .vision-visual {
-        position: relative;
-        height: 480px;
-      }
-      #city-canvas {
+      .case-img {
         width: 100%;
         height: 100%;
-        border-radius: 16px;
+        min-height: 340px;
+        object-fit: cover;
+        display: block;
       }
 
-      /* PARTNERS / TRUST */
-      .trust {
-        background: var(--bg2);
-        padding: 5rem 2rem;
-        text-align: center;
-      }
-      .trust p {
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
-        color: var(--text3);
-        margin-bottom: 2.5rem;
-      }
-      .trust-logos {
-        display: flex;
-        gap: 3rem;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-      }
-      .trust-logo {
-        font-size: 0.875rem;
-        font-weight: 600;
-        color: var(--text3);
-        letter-spacing: -0.02em;
-        padding: 0.5rem 1.25rem;
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        transition: color 0.2s, border-color 0.2s;
-      }
-      .trust-logo:hover {
-        color: var(--text2);
-        border-color: var(--border2);
-      }
-
-      /* CTA */
-      .cta-section {
-        background: var(--bg);
-        padding: 8rem 2rem;
-      }
-      .cta-inner {
-        max-width: 720px;
-        margin: 0 auto;
-        text-align: center;
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 20px;
-        padding: 5rem 4rem;
+      .case-body {
         position: relative;
-        overflow: hidden;
+        z-index: 1;
+        padding: 52px 44px;
       }
-      .cta-inner::before {
-        content: "";
-        position: absolute;
-        top: -100px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 400px;
-        height: 400px;
-        background: radial-gradient(
-          circle,
-          rgba(79, 124, 255, 0.08) 0%,
-          transparent 70%
-        );
-        pointer-events: none;
-      }
-      .cta-inner h2 {
-        font-size: 2.2rem;
+
+      .case-tag {
+        display: inline-block;
+        font-size: 0.72rem;
         font-weight: 700;
-        letter-spacing: -0.04em;
-        line-height: 1.15;
-        margin-bottom: 1rem;
-        position: relative;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--orange);
+        background: var(--orange-subtle);
+        padding: 4px 10px;
+        border-radius: 4px;
+        margin-bottom: 18px;
       }
-      .cta-inner p {
-        font-size: 1.05rem;
-        color: var(--text2);
-        margin-bottom: 2.5rem;
-        position: relative;
+
+      .case-body h3 {
+        font-family: var(--font-display);
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--midnight);
+        margin-bottom: 14px;
+        line-height: 1.25;
       }
-      .cta-form {
+
+      .case-body p {
+        color: var(--text-muted);
+        font-size: 0.92rem;
+        line-height: 1.75;
+        margin-bottom: 32px;
+      }
+
+      .case-stats {
         display: flex;
-        gap: 0.75rem;
-        max-width: 440px;
-        margin: 0 auto;
-        position: relative;
+        flex-direction: column;
+        gap: 20px;
       }
-      .cta-input {
-        flex: 1;
-        padding: 0.875rem 1.25rem;
-        background: var(--bg);
-        border: 1px solid var(--border2);
-        border-radius: 10px;
-        color: var(--text);
+
+      .stat {
+        border-left: 3px solid var(--orange);
+        padding-left: 18px;
+      }
+
+      .stat-num {
+        font-family: var(--font-display);
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--midnight);
+        line-height: 1;
+        margin-bottom: 2px;
+      }
+
+      .stat-label {
+        font-size: 0.82rem;
+        color: var(--text-muted);
+      }
+
+      /* CONTACT */
+      .contact-bg {
+        background: var(--off-white);
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 80px;
+        align-items: start;
+      }
+
+      .contact-left h2 {
+        margin-bottom: 14px;
+      }
+
+      .contact-left p {
+        color: var(--text-muted);
         font-size: 0.95rem;
-        font-family: var(--font);
-        outline: none;
+        line-height: 1.75;
+        margin-bottom: 28px;
+      }
+
+      .contact-detail {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        margin-bottom: 10px;
+      }
+
+      .contact-detail a {
+        color: var(--orange);
+        text-decoration: none;
+      }
+      .contact-detail a:hover {
+        text-decoration: underline;
+      }
+
+      /* FORM */
+      .form-wrap {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 40px;
+      }
+
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .field label {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--text);
+        letter-spacing: 0.02em;
+      }
+
+      .field input,
+      .field select,
+      .field textarea {
+        background: var(--off-white);
+        border: 1.5px solid var(--border);
+        border-radius: 7px;
+        padding: 11px 14px;
+        color: var(--text);
+        font-family: var(--font-body);
+        font-size: 0.9rem;
         transition: border-color 0.2s;
+        outline: none;
+        width: 100%;
       }
-      .cta-input:focus {
-        border-color: var(--accent);
+
+      .field input:focus,
+      .field select:focus,
+      .field textarea:focus {
+        border-color: var(--orange);
+        background: white;
       }
-      .cta-input::placeholder {
-        color: var(--text3);
+
+      .field textarea {
+        resize: vertical;
+        min-height: 110px;
+      }
+
+      .form-submit {
+        background: var(--orange);
+        color: white;
+        border: none;
+        padding: 14px 28px;
+        border-radius: 7px;
+        font-size: 0.92rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s;
+        font-family: var(--font-body);
+        width: 100%;
+      }
+
+      .form-submit:hover {
+        background: var(--orange-light);
+      }
+
+      .form-note {
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        text-align: center;
+      }
+
+      .form-success {
+        display: none;
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      .form-success.show {
+        display: block;
+      }
+
+      .form-success h4 {
+        font-family: var(--font-display);
+        font-size: 1.2rem;
+        color: var(--midnight);
+        margin-bottom: 8px;
+      }
+
+      .form-success p {
+        color: var(--text-muted);
+        font-size: 0.9rem;
       }
 
       /* FOOTER */
       footer {
-        background: var(--bg);
-        padding: 4rem 2rem 2.5rem;
-        border-top: 1px solid var(--border);
-      }
-      .footer-inner {
-        max-width: 1120px;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: 2fr 1fr 1fr 1fr;
-        gap: 3rem;
-        padding-bottom: 3rem;
-        border-bottom: 1px solid var(--border);
-        margin-bottom: 2rem;
-      }
-      .footer-brand p {
-        font-size: 0.875rem;
-        color: var(--text3);
-        margin-top: 0.75rem;
-        line-height: 1.6;
-        max-width: 260px;
-      }
-      .footer-col h4 {
-        font-size: 0.8rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: var(--text3);
-        margin-bottom: 1.25rem;
-      }
-      .footer-col ul {
-        list-style: none;
+        background: var(--midnight);
+        padding: 28px 6%;
         display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-      }
-      .footer-col ul a {
-        font-size: 0.875rem;
-        color: var(--text2);
-        transition: color 0.2s;
-      }
-      .footer-col ul a:hover {
-        color: var(--text);
-      }
-      .footer-bottom {
-        display: flex;
-        justify-content: space-between;
         align-items: center;
-        flex-wrap: wrap;
-        gap: 1rem;
-      }
-      .footer-bottom p {
-        font-size: 0.8rem;
-        color: var(--text3);
+        justify-content: space-between;
       }
 
-      /* SCROLL ANIMATIONS */
-      .fade-up {
-        opacity: 0;
-        transform: translateY(28px);
-        transition: opacity 0.65s ease, transform 0.65s ease;
+      .footer-copy {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.4);
       }
-      .fade-up.visible {
-        opacity: 1;
-        transform: translateY(0);
+      .footer-address {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.4);
+        text-align: right;
       }
 
       /* RESPONSIVE */
-      @media (max-width: 900px) {
-        .why-grid,
-        .deploy-grid,
-        .vision-inner {
-          grid-template-columns: 1fr;
-          gap: 3rem;
-        }
-        .cases-grid {
-          grid-template-columns: 1fr;
-        }
-        .phil-grid {
+      @media (max-width: 860px) {
+        .hero-inner,
+        .two-col,
+        .audience-grid,
+        .steps,
+        .mesh-inner,
+        .case-study,
+        .contact-grid {
           grid-template-columns: 1fr;
         }
-        .footer-inner {
-          grid-template-columns: 1fr 1fr;
+        .form-row {
+          grid-template-columns: 1fr;
         }
-        nav .nav-links {
+        .hero-image-wrap {
           display: none;
         }
-        .nav-cta {
-          display: none;
+        .case-img {
+          min-height: 220px;
         }
-      }
-      @media (max-width: 600px) {
-        .footer-inner {
-          grid-template-columns: 1fr;
-        }
-        .hero h1 {
-          font-size: 2.4rem;
-        }
-        .cta-inner {
-          padding: 3rem 1.75rem;
-        }
-        .cta-form {
+        footer {
           flex-direction: column;
+          gap: 8px;
+          text-align: center;
+        }
+        .footer-address {
+          text-align: center;
+        }
+        .nav-links {
+          display: none;
         }
       }
     </style>
@@ -868,970 +923,464 @@
   <body>
     <!-- NAV -->
     <nav>
-      <a href="#" class="nav-logo">
-        <div class="nav-logo-mark">VN</div>
+      <a href="#" class="wordmark">
+        <div class="wordmark-icon">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="3" />
+            <path
+              d="M12 3v2M12 19v2M3 12h2M19 12h2M6.34 6.34l1.41 1.41M16.25 16.25l1.41 1.41M6.34 17.66l1.41-1.41M16.25 7.75l1.41-1.41"
+            />
+          </svg>
+        </div>
         Variant Networks
       </a>
-      <ul class="nav-links">
-        <li><a href="#why-mesh">Why Mesh</a></li>
-        <li><a href="#use-cases">Use Cases</a></li>
-        <li><a href="#deployment">Deployment</a></li>
-        <li><a href="#philosophy">Technology</a></li>
-        <li><a href="#vision">Vision</a></li>
-      </ul>
-      <a href="#contact" class="nav-cta">Get in Touch</a>
+      <div class="nav-links">
+        <a href="#who-we-serve">Who We Serve</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#case-study">Case Study</a>
+        <a href="#contact" class="nav-cta">Get a Quote</a>
+      </div>
     </nav>
 
     <!-- HERO -->
     <section class="hero">
-      <canvas id="hero-canvas"></canvas>
-      <div class="hero-badge">
-        <div class="hero-badge-dot"></div>
-        Mesh Infrastructure for Urban Environments
-      </div>
-      <h1>
-        Connectivity that<br />
-        <span class="gradient-text">thinks like a city</span>
-      </h1>
-      <p class="hero-sub">
-        Variant Networks deploys adaptive mesh infrastructure that eliminates
-        dead zones in parking garages, apartment complexes, and commercial
-        properties — without the cost or rigidity of traditional ISP buildouts.
-      </p>
-      <div class="hero-actions">
-        <a href="#contact" class="btn-primary">Request a Site Assessment</a>
-        <a href="#why-mesh" class="btn-ghost">See How It Works</a>
-      </div>
-      <div class="hero-stats">
-        <div class="stat-item">
-          <div class="stat-num">3×</div>
-          <div class="stat-label">Fewer nodes than traditional setup</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num">−70</div>
-          <div class="stat-label">dBm average RSSI in deployment</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num">100%</div>
-          <div class="stat-label">Coverage in tested environments</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num">48h</div>
-          <div class="stat-label">Typical deployment window</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- WHY MESH -->
-    <section class="why-mesh" id="why-mesh">
-      <div class="container">
-        <div class="why-grid">
-          <div class="mesh-visual fade-up">
-            <canvas id="mesh-canvas"></canvas>
-          </div>
-          <div class="fade-up">
-            <div class="section-tag">Why Mesh</div>
-            <h2 class="section-title">
-              Distributed by design. Resilient by nature.
-            </h2>
-            <p class="section-desc" style="margin-bottom: 2.5rem">
-              Traditional networks route everything through a single access
-              point. Mesh networks distribute intelligence across every node —
-              so when one path degrades, traffic automatically reroutes. The
-              result is infrastructure that heals itself.
-            </p>
-            <div class="mesh-features">
-              <div class="mesh-feature">
-                <div class="mesh-icon">⬡</div>
-                <div class="mesh-feature-text">
-                  <h3>No single point of failure</h3>
-                  <p>
-                    Every node participates in routing. Signal degradation on
-                    one link triggers automatic path recalculation across the
-                    mesh — no manual intervention required.
-                  </p>
-                </div>
-              </div>
-              <div class="mesh-feature">
-                <div class="mesh-icon">⊕</div>
-                <div class="mesh-feature-text">
-                  <h3>Non-invasive deployment</h3>
-                  <p>
-                    No wall penetrations, no conduit runs, no ISP coordination.
-                    Nodes mount on existing fixtures and connect via PoE — fully
-                    reversible and regulation-friendly.
-                  </p>
-                </div>
-              </div>
-              <div class="mesh-feature">
-                <div class="mesh-icon">◈</div>
-                <div class="mesh-feature-text">
-                  <h3>Topology-aware self-optimization</h3>
-                  <p>
-                    The network continuously evaluates signal strength, hop
-                    count, and interference levels — selecting the most
-                    efficient relay path in real time, not at configuration
-                    time.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- USE CASES -->
-    <section class="use-cases" id="use-cases">
-      <div class="container">
-        <div class="cases-header">
-          <div class="fade-up">
-            <div class="section-tag">Use Cases</div>
-            <h2 class="section-title">
-              Built for environments<br />that traditional ISPs ignore.
-            </h2>
-          </div>
-          <p class="section-desc fade-up" style="max-width: 360px">
-            Dense concrete, underground levels, and mixed-use layouts are not
-            edge cases — they're our primary design targets.
+      <div class="hero-inner">
+        <div>
+          <span class="hero-eyebrow">Managed Mesh WiFi</span>
+          <h1>Turn Your Building<br />Into a <em>Network</em></h1>
+          <p class="hero-sub">
+            We eliminate dead zones in apartment complexes and parking
+            structures with hardware we install and a service we manage — so you
+            don't have to think about it.
           </p>
+          <div class="hero-actions">
+            <a href="#contact" class="btn-primary"
+              >Get a Free Site Assessment</a
+            >
+            <a href="#how-it-works" class="btn-outline">See How It Works</a>
+          </div>
         </div>
-        <div class="cases-grid fade-up">
-          <div class="case-card">
-            <div class="case-number">01 — VERTICAL</div>
-            <span class="case-icon">🏗</span>
-            <h3>Underground Parking Garages</h3>
-            <p>
-              Concrete decks and steel columns scatter and absorb RF signal.
-              Mesh nodes placed at optimal intervals maintain stable backhaul
-              links through multi-hop paths — replacing six conventional access
-              points with three precisely positioned nodes.
-            </p>
-            <div class="case-metrics">
-              <div class="case-metric">
-                <div class="case-metric-val">−65</div>
-                <div class="case-metric-key">dBm target RSSI</div>
-              </div>
-              <div class="case-metric">
-                <div class="case-metric-val">100%</div>
-                <div class="case-metric-key">Garage coverage</div>
-              </div>
-            </div>
-          </div>
-          <div class="case-card">
-            <div class="case-number">02 — RESIDENTIAL</div>
-            <span class="case-icon">🏢</span>
-            <h3>Multi-Dwelling Units</h3>
-            <p>
-              Property owners gain a managed WiFi amenity without signing ISP
-              contracts. Residents connect at $25/month — a fraction of major
-              carrier rates — with no throttling during peak hours. One wired
-              backhaul node serves an entire building.
-            </p>
-            <div class="case-metrics">
-              <div class="case-metric">
-                <div class="case-metric-val">$25</div>
-                <div class="case-metric-key">Per unit/month</div>
-              </div>
-              <div class="case-metric">
-                <div class="case-metric-val">1 Gbps</div>
-                <div class="case-metric-key">Fiber backhaul</div>
-              </div>
-            </div>
-          </div>
-          <div class="case-card">
-            <div class="case-number">03 — COMMERCIAL</div>
-            <span class="case-icon">🏬</span>
-            <h3>Mixed-Use Commercial Properties</h3>
-            <p>
-              Rooftop-to-rooftop relay links bridge connectivity across a
-              property portfolio without ISP coordination. Remote management via
-              encrypted overlay networks means zero on-site visits for routine
-              diagnostics or configuration changes.
-            </p>
-            <div class="case-metrics">
-              <div class="case-metric">
-                <div class="case-metric-val">300yd</div>
-                <div class="case-metric-key">Rooftop relay range</div>
-              </div>
-              <div class="case-metric">
-                <div class="case-metric-val">48h</div>
-                <div class="case-metric-key">Deployment time</div>
-              </div>
+        <div class="hero-image-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1545259742-b1a7d40fb1bd?w=800&q=80"
+            alt="Modern apartment building exterior"
+            onerror="this.src='https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80'"
+          />
+          <div class="hero-badge">
+            <div class="badge-dot"></div>
+            <div>
+              <div class="badge-text">Network Active</div>
+              <div class="badge-sub">Harper Court — Chicago, IL</div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- DEPLOYMENT -->
-    <section class="deployment" id="deployment">
-      <div class="container">
-        <div class="deploy-grid">
-          <div class="fade-up">
-            <div class="section-tag">Live Deployment</div>
-            <h2 class="section-title">
-              Harper Court Garage — University of Chicago
-            </h2>
-            <p class="section-desc" style="margin-bottom: 0">
-              Our validated proof-of-concept deployment in a 117m × 76m
-              underground parking structure at the University of Chicago
-              achieved full coverage with 3 mesh nodes — replacing a 6-unit
-              conventional setup and eliminating all dead zones measured at 12
-              test points.
+    <!-- PROOF STRIP -->
+    <div class="proof-strip">
+      <span class="proof-label">Trusted by</span>
+      <div class="proof-sep"></div>
+      <span class="proof-item">Apartment Complexes</span>
+      <div class="proof-sep"></div>
+      <span class="proof-item">Parking Structures</span>
+      <div class="proof-sep"></div>
+      <span class="proof-item">Harper Court — Chicago, IL</span>
+    </div>
+
+    <!-- PROBLEM / SOLUTION -->
+    <section>
+      <div class="section-inner">
+        <p class="section-eyebrow">The Problem</p>
+        <h2>Dead zones cost you tenants<br />and frustrate visitors</h2>
+        <p class="section-sub">
+          Concrete, steel, and multi-floor layouts block signal. Most buildings
+          rely on a single router never designed for the job.
+        </p>
+        <div class="two-col">
+          <div class="col-card">
+            <p class="col-label">Without Variant Networks</p>
+            <h3>Spotty coverage that hurts your property</h3>
+            <p>
+              Tenants complain about dead zones on upper floors and stairwells.
+              Parking structures have zero connectivity. Property managers spend
+              hours troubleshooting gear they didn't install.
             </p>
-            <div class="deploy-steps">
-              <div class="deploy-step">
-                <div class="step-num">01</div>
-                <div class="step-text">
-                  <h4>Site survey & RF mapping</h4>
-                  <p>
-                    RSSI measured at 12 test points across 2.4 GHz and 5 GHz
-                    bands. Obstacle mapping identifies elevator banks,
-                    structural columns, and signal reflection zones.
-                  </p>
-                </div>
-              </div>
-              <div class="deploy-step">
-                <div class="step-num">02</div>
-                <div class="step-text">
-                  <h4>Node placement & PoE installation</h4>
-                  <p>
-                    Temporary bracket mounts near existing power outlets. No
-                    conduit, no surface penetration. Core node connects to
-                    building LAN. Branch nodes operate wirelessly.
-                  </p>
-                </div>
-              </div>
-              <div class="deploy-step">
-                <div class="step-num">03</div>
-                <div class="step-text">
-                  <h4>Performance validation</h4>
-                  <p>
-                    Throughput measured at 100–120 Mbps on first hop. 2-hop
-                    environment delivered ~52 Mbps — consistent with spec.
-                    Average RSSI ≥ −70 dBm across all 12 test points.
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
-          <div class="fade-up">
-            <div class="deploy-diagram">
-              <div class="deploy-diagram-title">
-                // Garage topology — Harper Court, Chicago
-              </div>
-              <canvas id="garage-canvas"></canvas>
-              <div class="deploy-specs">
-                <div class="spec-item">
-                  <div class="spec-val">3</div>
-                  <div class="spec-key">Nodes deployed</div>
-                </div>
-                <div class="spec-item">
-                  <div class="spec-val">12</div>
-                  <div class="spec-key">Test points</div>
-                </div>
-                <div class="spec-item">
-                  <div class="spec-val">−68</div>
-                  <div class="spec-key">Avg RSSI (dBm)</div>
-                </div>
-                <div class="spec-item">
-                  <div class="spec-val">100%</div>
-                  <div class="spec-key">Coverage achieved</div>
-                </div>
-              </div>
-            </div>
+          <div class="col-card solution">
+            <p class="col-label sol">With Variant Networks</p>
+            <h3>One managed network — every corner covered</h3>
+            <p>
+              We design, install, and manage a mesh network tuned to your
+              layout. Every node communicates with every other. Dead zones
+              disappear. You get one contact for everything.
+            </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- PHILOSOPHY -->
-    <section class="philosophy" id="philosophy">
-      <div class="container">
-        <div class="fade-up" style="max-width: 580px; margin-bottom: 0">
-          <div class="section-tag">Technical Philosophy</div>
-          <h2 class="section-title">
-            Infrastructure that earns its place in the stack.
-          </h2>
-        </div>
-        <div class="phil-grid fade-up">
-          <div class="phil-card">
-            <div class="phil-card-tag">01 — Architecture</div>
-            <h3>Vendor-agnostic by principle</h3>
-            <p>
-              We deploy MikroTik for rooftop relay backhaul and PicoCELA
-              PCWL-0510 units for dense indoor mesh. Each environment gets the
-              right hardware for its RF characteristics — not whatever fits a
-              single-vendor contract.
-            </p>
-            <div class="code-snippet">
-              <span class="cm"># ZeroTier overlay — remote access</span><br />
-              <span class="kw">interface</span> zt0
-              <span class="str">10.217.x.x</span>/24<br />
-              <span class="kw">bridge</span> mesh_backhaul ↔ zt_overlay<br />
-              <span class="cm"># SSH tunnel, no public IPs exposed</span>
-            </div>
-          </div>
-          <div class="phil-card">
-            <div class="phil-card-tag">02 — Resilience</div>
-            <h3>Self-healing topology</h3>
-            <p>
-              Mesh nodes continuously evaluate link quality across 2.4 GHz and 5
-              GHz bands. When a backhaul path degrades, the network
-              automatically promotes an alternate hop path — maintaining
-              connectivity without operator intervention.
-            </p>
-            <div class="code-snippet">
-              <span class="cm"># RSSI thresholds — deployment targets</span
-              ><br />
-              backhaul_min: <span class="num">-65</span> dBm<br />
-              access_min: <span class="num">-75</span> dBm<br />
-              variation_max: <span class="num">±5</span> dBm
-              <span class="str">stable</span>
-            </div>
-          </div>
-          <div class="phil-card">
-            <div class="phil-card-tag">03 — Security</div>
-            <h3>Enterprise-grade auth in edge environments</h3>
-            <p>
-              A Raspberry Pi 5 running 802.1X handles enterprise authentication
-              (eduroam), NAT routing, and ZeroTier overlay access — enabling
-              remote management without exposing public IPs across any node in
-              the network.
-            </p>
-            <div class="code-snippet">
-              <span class="cm"># Auth stack — Polsky Exchange node</span><br />
-              802.1X → <span class="str">eduroam</span><br />
-              NAT gateway → OmniTik mesh<br />
-              ZeroTier → <span class="num">encrypted</span> overlay
-            </div>
-          </div>
-          <div class="phil-card">
-            <div class="phil-card-tag">04 — Scalability</div>
-            <h3>Each node extends the network</h3>
-            <p>
-              Unlike hub-and-spoke WiFi, every Variant node is a relay point.
-              Adding coverage to a new area doesn't require new cabling runs —
-              it requires one new node within wireless range of an existing one.
-              The network grows organically with the property.
-            </p>
-            <div class="code-snippet">
-              <span class="cm"># Expansion model</span><br />
-              new_node → scan_neighbors()<br />
-              <span class="kw">if</span> rssi &gt; <span class="num">-70</span>:
-              join_mesh()<br />
-              <span class="kw">else</span>: request_relay_placement()
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- VISION -->
-    <section class="vision" id="vision">
-      <div class="vision-inner container">
-        <div class="vision-content fade-up">
-          <div class="section-tag">The Bigger Picture</div>
-          <h2>A city-scale network, built one building at a time.</h2>
-          <p>
-            The incumbent ISPs built for the street level. They designed for
-            easy runs, permissive environments, and density that makes the unit
-            economics work. Basements don't make their model. Garages don't
-            either.
-          </p>
-          <p>
-            Variant Networks was designed for the spaces that fall through — the
-            dead zones that are becoming safety liabilities as EV charging,
-            license plate recognition, and emergency communication systems
-            demand reliable connectivity underground.
-          </p>
-          <p>
-            Our long-term architecture is a distributed mesh that spans
-            rooftops, garages, and common areas across a commercial portfolio —
-            remotely managed, locally owned, and resilient enough to operate
-            independently of any single ISP.
-          </p>
-          <a
-            href="#contact"
-            class="btn-primary"
-            style="display: inline-block; margin-top: 1.5rem"
-            >Partner with us →</a
-          >
-        </div>
-        <div class="vision-visual fade-up">
-          <canvas id="city-canvas"></canvas>
-        </div>
-      </div>
-    </section>
-
-    <!-- TRUST -->
-    <section class="trust">
-      <div class="container">
-        <p>Deployed in partnership with</p>
-        <div class="trust-logos">
-          <div class="trust-logo">University of Chicago</div>
-          <div class="trust-logo">Harper Court</div>
-          <div class="trust-logo">PicoCELA Inc.</div>
-          <div class="trust-logo">CBRE Properties</div>
-          <div class="trust-logo">Tides Foundation</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="cta-section" id="contact">
-      <div class="container">
-        <div class="cta-inner">
-          <h2>Ready to eliminate your dead zones?</h2>
-          <p>
-            We start with a free site assessment. Share your property details
-            and we'll map the deployment architecture before any commitment.
-          </p>
-          <div class="cta-form">
-            <input
-              type="email"
-              class="cta-input"
-              placeholder="your@email.com"
+    <!-- WHO WE SERVE -->
+    <section style="padding-top: 0" id="who-we-serve">
+      <div class="section-inner">
+        <p class="section-eyebrow">Who We Serve</p>
+        <h2>Built for property managers<br />who need it to just work</h2>
+        <p class="section-sub">
+          Whether you manage a residential complex or a parking structure, we
+          have a coverage plan for your layout.
+        </p>
+        <div class="audience-grid">
+          <div class="audience-card">
+            <img
+              class="card-img"
+              src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=700&q=80"
+              alt="Modern apartment complex"
+              onerror="this.src='https://images.unsplash.com/photo-1486325212027-8081e485255e?w=700&q=80'"
             />
-            <button class="btn-primary">Request Assessment</button>
+            <div class="card-body">
+              <div class="card-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                  <polyline points="9 22 9 12 15 12 15 22" />
+                </svg>
+              </div>
+              <h3>Apartment Complexes</h3>
+              <p class="card-desc">
+                Give every unit, hallway, and amenity space reliable
+                connectivity. Make it a selling point, not a complaint.
+              </p>
+              <ul class="benefit-list">
+                <li>Full-building mesh — no dead floors</li>
+                <li>Per-unit or common-area deployment</li>
+                <li>24/7 remote monitoring and management</li>
+                <li>Boost retention with reliable amenity WiFi</li>
+              </ul>
+            </div>
           </div>
-          <p
-            style="
-              font-size: 0.8rem;
-              color: var(--text3);
-              margin-top: 1rem;
-              margin-bottom: 0;
-            "
-          >
-            No obligation. Typical response within 24 hours.
+          <div class="audience-card">
+            <img
+              class="card-img"
+              src="https://images.unsplash.com/photo-1573348722427-f1d6819fdf98?w=700&q=80"
+              alt="Parking structure"
+              onerror="this.src='https://images.unsplash.com/photo-1486325212027-8081e485255e?w=700&q=80'"
+            />
+            <div class="card-body">
+              <div class="card-icon">
+                <svg viewBox="0 0 24 24">
+                  <rect x="1" y="3" width="15" height="13" />
+                  <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
+                  <circle cx="5.5" cy="18.5" r="2.5" />
+                  <circle cx="18.5" cy="18.5" r="2.5" />
+                </svg>
+              </div>
+              <h3>Parking Garages & Lots</h3>
+              <p class="card-desc">
+                Turn concrete-blocked, signal-dead structures into fully
+                connected environments for staff and customers.
+              </p>
+              <ul class="benefit-list">
+                <li>Nodes built for concrete and steel</li>
+                <li>Supports cameras, ticketing, and IoT sensors</li>
+                <li>Multi-level coverage, single managed plan</li>
+                <li>Reduce staff frustration and blind spots</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MESH EXPLAINER -->
+    <section class="mesh-section">
+      <div class="mesh-inner">
+        <div>
+          <p class="section-eyebrow">Why Mesh</p>
+          <h2 style="color: white">
+            Every node talks to<br />every other node
+          </h2>
+          <p class="section-sub">
+            Traditional routers send signal from one point. Mesh networks
+            distribute it across dozens of access points that self-organize and
+            self-heal.
           </p>
+          <div class="mesh-feature">
+            <div class="mesh-feature-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M1.42 9a16 16 0 0121.16 0" />
+                <path d="M5 12.55a11 11 0 0114.08 0" />
+                <path d="M8.53 16.11a6 6 0 016.95 0" />
+                <circle cx="12" cy="20" r="1" />
+              </svg>
+            </div>
+            <div>
+              <h4>Distributed Coverage</h4>
+              <p>
+                Access points placed throughout your building ensure no corner
+                is left without signal.
+              </p>
+            </div>
+          </div>
+          <div class="mesh-feature">
+            <div class="mesh-feature-icon">
+              <svg viewBox="0 0 24 24">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+                <polyline points="17 6 23 6 23 12" />
+              </svg>
+            </div>
+            <div>
+              <h4>Self-Healing Network</h4>
+              <p>
+                If one node goes down, traffic automatically reroutes through
+                others — no outage.
+              </p>
+            </div>
+          </div>
+          <div class="mesh-feature">
+            <div class="mesh-feature-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </div>
+            <div>
+              <h4>Remotely Managed</h4>
+              <p>
+                We monitor every node 24/7 and push updates before issues affect
+                your tenants.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="mesh-visual">
+          <img
+            src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=700&q=80"
+            alt="Network hardware access point"
+            onerror="this.src='https://images.unsplash.com/photo-1518770660439-4636190af475?w=700&q=80'"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-bg" id="how-it-works">
+      <div class="section-inner">
+        <p class="section-eyebrow">How It Works</p>
+        <h2>From site visit to full coverage<br />in three steps</h2>
+        <p class="section-sub">
+          No long procurement cycles. We move fast and keep things simple.
+        </p>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">01</div>
+            <h3>Free Site Assessment</h3>
+            <p>
+              We walk your property, map dead zones, and design a mesh layout
+              specific to your building's footprint — at no cost.
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-num">02</div>
+            <h3>Hardware Install</h3>
+            <p>
+              Our team installs low-profile mesh nodes throughout your property
+              with minimal disruption and clean cable management.
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-num">03</div>
+            <h3>Managed Service</h3>
+            <p>
+              We monitor remotely, push firmware updates, and resolve issues
+              before your tenants notice. One call, one contact.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASE STUDY -->
+    <section id="case-study">
+      <div class="section-inner">
+        <p class="section-eyebrow">Case Study</p>
+        <h2>Proven in the field</h2>
+        <p class="section-sub">
+          We don't just talk coverage — we've delivered it.
+        </p>
+        <div class="case-study">
+          <img
+            class="case-img"
+            src="https://images.unsplash.com/photo-1567521464027-f127ff144326?w=700&q=80"
+            alt="Chicago apartment building Harper Court"
+            onerror="this.src='https://images.unsplash.com/photo-1486325212027-8081e485255e?w=700&q=80'"
+          />
+          <div class="case-body">
+            <span class="case-tag">Chicago, IL</span>
+            <h3>Harper Court — Full-Building Mesh Deployment</h3>
+            <p>
+              Harper Court had inconsistent connectivity across upper floors and
+              common areas. We designed and deployed a full mesh network across
+              the property, eliminating dead zones and handing management a
+              service they don't have to think about.
+            </p>
+            <div class="case-stats">
+              <div class="stat">
+                <div class="stat-num">100%</div>
+                <div class="stat-label">
+                  Building coverage — zero dead floors
+                </div>
+              </div>
+              <div class="stat">
+                <div class="stat-num">1</div>
+                <div class="stat-label">
+                  Point of contact for all network issues
+                </div>
+              </div>
+              <div class="stat">
+                <div class="stat-num">24/7</div>
+                <div class="stat-label">Remote monitoring and management</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact-bg" id="contact">
+      <div class="section-inner">
+        <div class="contact-grid">
+          <div class="contact-left">
+            <p class="section-eyebrow">Get in Touch</p>
+            <h2>Let's assess your property</h2>
+            <p>
+              Tell us about your building and we'll schedule a free site walk.
+              No commitment, no pressure — just a clear picture of what full
+              coverage looks like for your property.
+            </p>
+            <div class="contact-detail">
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#C95E1A"
+                stroke-width="2"
+                stroke-linecap="round"
+              >
+                <path
+                  d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+              <a href="mailto:isaiah@variantnetworks.net"
+                >isaiah@variantnetworks.net</a
+              >
+            </div>
+          </div>
+          <div class="form-wrap">
+            <form class="contact-form" id="contactForm">
+              <div class="form-row">
+                <div class="field">
+                  <label>First Name</label>
+                  <input
+                    type="text"
+                    name="first_name"
+                    placeholder="Jane"
+                    required
+                  />
+                </div>
+                <div class="field">
+                  <label>Last Name</label>
+                  <input
+                    type="text"
+                    name="last_name"
+                    placeholder="Smith"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="field">
+                <label>Work Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="jane@propertyco.com"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label>Property Type</label>
+                <select name="property_type" required>
+                  <option value="" disabled selected>Select one</option>
+                  <option>Apartment Complex</option>
+                  <option>Parking Garage / Structure</option>
+                  <option>Mixed Use</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Tell us about your property</label>
+                <textarea
+                  name="message"
+                  placeholder="Building size, number of floors, current connectivity issues..."
+                ></textarea>
+              </div>
+              <button type="submit" class="form-submit">
+                Request a Free Assessment →
+              </button>
+              <p class="form-note">We'll respond within one business day.</p>
+            </form>
+            <div class="form-success" id="formSuccess">
+              <h4>Message received ✓</h4>
+              <p>
+                We'll be in touch within one business day to schedule your site
+                assessment.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- FOOTER -->
     <footer>
-      <div class="footer-inner">
-        <div class="footer-brand">
-          <div class="nav-logo">
-            <div class="nav-logo-mark">VN</div>
-            Variant Networks
-          </div>
-          <p>
-            Mesh infrastructure for urban commercial environments.
-            Chicago-based. Deploying across the South Side and beyond.
-          </p>
-        </div>
-        <div class="footer-col">
-          <h4>Solutions</h4>
-          <ul>
-            <li><a href="#">Parking Garages</a></li>
-            <li><a href="#">Apartment Complexes</a></li>
-            <li><a href="#">Commercial Properties</a></li>
-            <li><a href="#">Smart Infrastructure</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Company</h4>
-          <ul>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Technology</a></li>
-            <li><a href="#">Case Studies</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Resources</h4>
-          <ul>
-            <li><a href="#">Deployment Guide</a></li>
-            <li><a href="#">Technical Specs</a></li>
-            <li><a href="#">Partner Program</a></li>
-            <li><a href="#">Press</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom container">
-        <p>© 2026 Variant Networks LLC. Chicago, IL.</p>
-        <p style="color: var(--text3)">
-          Built on open standards. Deployed with purpose.
-        </p>
-      </div>
+      <span class="footer-copy"
+        >© 2026 Variant Networks. All rights reserved.</span
+      >
+      <span class="footer-address"
+        >Cocody, Angre 7ème Tranche — 01 BP 2071 Abidjan 01</span
+      >
     </footer>
 
     <script>
-      // ---- HERO CANVAS: Animated mesh network ----
-      (function () {
-        const canvas = document.getElementById("hero-canvas");
-        const ctx = canvas.getContext("2d");
-        let W,
-          H,
-          nodes = [],
-          animFrame;
+      const form = document.getElementById("contactForm");
+      const success = document.getElementById("formSuccess");
 
-        function resize() {
-          W = canvas.width = window.innerWidth;
-          H = canvas.height = window.innerHeight;
-          initNodes();
-        }
-
-        function initNodes() {
-          nodes = [];
-          const count = Math.floor((W * H) / 18000);
-          for (let i = 0; i < count; i++) {
-            nodes.push({
-              x: Math.random() * W,
-              y: Math.random() * H,
-              vx: (Math.random() - 0.5) * 0.35,
-              vy: (Math.random() - 0.5) * 0.35,
-              r: Math.random() * 2 + 1,
-              active: Math.random() > 0.6,
-            });
-          }
-        }
-
-        function draw() {
-          ctx.clearRect(0, 0, W, H);
-          const maxDist = 160;
-
-          for (let i = 0; i < nodes.length; i++) {
-            for (let j = i + 1; j < nodes.length; j++) {
-              const dx = nodes[i].x - nodes[j].x;
-              const dy = nodes[i].y - nodes[j].y;
-              const d = Math.sqrt(dx * dx + dy * dy);
-              if (d < maxDist) {
-                const alpha = (1 - d / maxDist) * 0.18;
-                ctx.beginPath();
-                ctx.moveTo(nodes[i].x, nodes[i].y);
-                ctx.lineTo(nodes[j].x, nodes[j].y);
-                ctx.strokeStyle = `rgba(79,124,255,${alpha})`;
-                ctx.lineWidth = 0.8;
-                ctx.stroke();
-              }
-            }
-          }
-
-          for (const n of nodes) {
-            ctx.beginPath();
-            ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-            ctx.fillStyle = n.active
-              ? "rgba(79,124,255,0.7)"
-              : "rgba(79,124,255,0.25)";
-            ctx.fill();
-
-            if (n.active) {
-              ctx.beginPath();
-              ctx.arc(n.x, n.y, n.r + 3, 0, Math.PI * 2);
-              ctx.strokeStyle = "rgba(79,124,255,0.15)";
-              ctx.lineWidth = 1;
-              ctx.stroke();
-            }
-
-            n.x += n.vx;
-            n.y += n.vy;
-            if (n.x < 0 || n.x > W) n.vx *= -1;
-            if (n.y < 0 || n.y > H) n.vy *= -1;
-          }
-
-          animFrame = requestAnimationFrame(draw);
-        }
-
-        resize();
-        draw();
-        window.addEventListener("resize", resize);
-      })();
-
-      // ---- MESH CANVAS: Why Mesh section ----
-      (function () {
-        const canvas = document.getElementById("mesh-canvas");
-        if (!canvas) return;
-        const ctx = canvas.getContext("2d");
-        let t = 0;
-
-        function resize() {
-          canvas.width = canvas.offsetWidth;
-          canvas.height = canvas.offsetHeight;
-        }
-
-        const nodePos = [
-          [0.5, 0.12],
-          [0.15, 0.38],
-          [0.82, 0.32],
-          [0.28, 0.68],
-          [0.72, 0.72],
-          [0.5, 0.9],
-          [0.05, 0.8],
-          [0.95, 0.6],
-        ];
-
-        const edges = [
-          [0, 1],
-          [0, 2],
-          [1, 3],
-          [2, 4],
-          [3, 4],
-          [3, 5],
-          [4, 5],
-          [1, 6],
-          [4, 7],
-          [5, 7],
-          [6, 5],
-          [2, 7],
-        ];
-
-        function draw() {
-          const W = canvas.width,
-            H = canvas.height;
-          ctx.clearRect(0, 0, W, H);
-          t += 0.008;
-
-          const pts = nodePos.map(([nx, ny]) => [nx * W, ny * H]);
-
-          for (const [a, b] of edges) {
-            const pulse = 0.5 + 0.5 * Math.sin(t + a + b);
-            ctx.beginPath();
-            ctx.moveTo(pts[a][0], pts[a][1]);
-            ctx.lineTo(pts[b][0], pts[b][1]);
-            ctx.strokeStyle = `rgba(79,124,255,${0.1 + pulse * 0.18})`;
-            ctx.lineWidth = 1;
-            ctx.stroke();
-
-            const prog = (t * 0.5 + (a + b) * 0.3) % 1;
-            const px = pts[a][0] + (pts[b][0] - pts[a][0]) * prog;
-            const py = pts[a][1] + (pts[b][1] - pts[a][1]) * prog;
-            ctx.beginPath();
-            ctx.arc(px, py, 2.5, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(45,212,191,${0.5 + pulse * 0.4})`;
-            ctx.fill();
-          }
-
-          for (let i = 0; i < pts.length; i++) {
-            const [px, py] = pts[i];
-            const pulse = 0.5 + 0.5 * Math.sin(t * 1.3 + i);
-            ctx.beginPath();
-            ctx.arc(px, py, 5 + pulse * 2, 0, Math.PI * 2);
-            ctx.fillStyle =
-              i === 0
-                ? `rgba(79,124,255,0.9)`
-                : `rgba(79,124,255,${0.5 + pulse * 0.3})`;
-            ctx.fill();
-
-            ctx.beginPath();
-            ctx.arc(px, py, 10 + pulse * 4, 0, Math.PI * 2);
-            ctx.strokeStyle = `rgba(79,124,255,${0.08 + pulse * 0.06})`;
-            ctx.lineWidth = 1;
-            ctx.stroke();
-          }
-
-          requestAnimationFrame(draw);
-        }
-
-        resize();
-        draw();
-        window.addEventListener("resize", resize);
-      })();
-
-      // ---- GARAGE CANVAS: Deployment diagram ----
-      (function () {
-        const canvas = document.getElementById("garage-canvas");
-        if (!canvas) return;
-        const ctx = canvas.getContext("2d");
-        let t = 0;
-
-        function resize() {
-          canvas.width = canvas.offsetWidth;
-          canvas.height = canvas.offsetHeight;
-        }
-
-        function draw() {
-          const W = canvas.width,
-            H = canvas.height;
-          ctx.clearRect(0, 0, W, H);
-          t += 0.012;
-
-          ctx.strokeStyle = "rgba(255,255,255,0.06)";
-          ctx.lineWidth = 1;
-          ctx.strokeRect(10, 10, W - 20, H - 20);
-
-          for (let i = 1; i < 4; i++) {
-            ctx.beginPath();
-            ctx.moveTo(10 + ((W - 20) * i) / 4, 10);
-            ctx.lineTo(10 + ((W - 20) * i) / 4, H - 10);
-            ctx.strokeStyle = "rgba(255,255,255,0.03)";
-            ctx.stroke();
-          }
-          for (let i = 1; i < 3; i++) {
-            ctx.beginPath();
-            ctx.moveTo(10, 10 + ((H - 20) * i) / 3);
-            ctx.lineTo(W - 10, 10 + ((H - 20) * i) / 3);
-            ctx.stroke();
-          }
-
-          const nodes = [
-            { x: 0.15, y: 0.5, label: "Core", type: "core" },
-            { x: 0.52, y: 0.25, label: "Branch A", type: "branch" },
-            { x: 0.52, y: 0.75, label: "Branch B", type: "branch" },
-          ];
-
-          const links = [
-            [0, 1],
-            [0, 2],
-            [1, 2],
-          ];
-
-          for (const [a, b] of links) {
-            const pa = { x: nodes[a].x * W, y: nodes[a].y * H };
-            const pb = { x: nodes[b].x * W, y: nodes[b].y * H };
-            const pulse = 0.5 + 0.5 * Math.sin(t + a * 2 + b);
-
-            ctx.beginPath();
-            ctx.setLineDash([4, 4]);
-            ctx.moveTo(pa.x, pa.y);
-            ctx.lineTo(pb.x, pb.y);
-            ctx.strokeStyle = `rgba(79,124,255,${0.2 + pulse * 0.2})`;
-            ctx.lineWidth = 1.5;
-            ctx.stroke();
-            ctx.setLineDash([]);
-
-            const prog = (t * 0.4 + a * 0.5) % 1;
-            const ppx = pa.x + (pb.x - pa.x) * prog;
-            const ppy = pa.y + (pb.y - pa.y) * prog;
-            ctx.beginPath();
-            ctx.arc(ppx, ppy, 3, 0, Math.PI * 2);
-            ctx.fillStyle = "rgba(45,212,191,0.8)";
-            ctx.fill();
-          }
-
-          for (const n of nodes) {
-            const nx = n.x * W,
-              ny = n.y * H;
-            const pulse = 0.5 + 0.5 * Math.sin(t * 1.2 + nx);
-            const isCore = n.type === "core";
-
-            ctx.beginPath();
-            ctx.arc(nx, ny, isCore ? 14 : 10, 0, Math.PI * 2);
-            ctx.fillStyle = isCore
-              ? "rgba(79,124,255,0.85)"
-              : "rgba(45,212,191,0.7)";
-            ctx.fill();
-
-            ctx.beginPath();
-            ctx.arc(nx, ny, (isCore ? 20 : 15) + pulse * 5, 0, Math.PI * 2);
-            ctx.strokeStyle = isCore
-              ? `rgba(79,124,255,${0.15 + pulse * 0.1})`
-              : `rgba(45,212,191,${0.12 + pulse * 0.08})`;
-            ctx.lineWidth = 1;
-            ctx.stroke();
-
-            ctx.font = "11px monospace";
-            ctx.fillStyle = "rgba(255,255,255,0.7)";
-            ctx.textAlign = "center";
-            ctx.fillText(n.label, nx, ny + (isCore ? 28 : 24));
-          }
-
-          const testPts = [
-            [0.28, 0.18],
-            [0.42, 0.18],
-            [0.65, 0.18],
-            [0.78, 0.18],
-            [0.28, 0.5],
-            [0.78, 0.5],
-            [0.28, 0.82],
-            [0.42, 0.82],
-            [0.65, 0.82],
-            [0.78, 0.82],
-            [0.88, 0.35],
-            [0.88, 0.65],
-          ];
-
-          for (let i = 0; i < testPts.length; i++) {
-            const px = testPts[i][0] * W,
-              py = testPts[i][1] * H;
-            const active = Math.sin(t * 0.8 + i * 0.7) > 0.2;
-            ctx.beginPath();
-            ctx.arc(px, py, 3.5, 0, Math.PI * 2);
-            ctx.fillStyle = active
-              ? "rgba(34,197,94,0.8)"
-              : "rgba(34,197,94,0.3)";
-            ctx.fill();
-          }
-
-          requestAnimationFrame(draw);
-        }
-
-        resize();
-        draw();
-        window.addEventListener("resize", resize);
-      })();
-
-      // ---- CITY CANVAS: Vision section ----
-      (function () {
-        const canvas = document.getElementById("city-canvas");
-        if (!canvas) return;
-        const ctx = canvas.getContext("2d");
-        let t = 0;
-
-        function resize() {
-          canvas.width = canvas.offsetWidth;
-          canvas.height = canvas.offsetHeight;
-        }
-
-        const buildings = [
-          { x: 0.05, w: 0.08, h: 0.45 },
-          { x: 0.15, w: 0.06, h: 0.6 },
-          { x: 0.23, w: 0.09, h: 0.35 },
-          { x: 0.34, w: 0.07, h: 0.7 },
-          { x: 0.43, w: 0.05, h: 0.5 },
-          { x: 0.5, w: 0.1, h: 0.42 },
-          { x: 0.62, w: 0.06, h: 0.65 },
-          { x: 0.7, w: 0.08, h: 0.38 },
-          { x: 0.8, w: 0.06, h: 0.55 },
-          { x: 0.88, w: 0.09, h: 0.47 },
-        ];
-
-        const rooftopNodes = [
-          { bx: 0.19, pulse: 0 },
-          { bx: 0.375, pulse: 1 },
-          { bx: 0.65, pulse: 2 },
-          { bx: 0.84, pulse: 3 },
-        ];
-
-        function draw() {
-          const W = canvas.width,
-            H = canvas.height;
-          ctx.clearRect(0, 0, W, H);
-          t += 0.008;
-
-          const skyH = H * 0.65;
-
-          for (const b of buildings) {
-            const bx = b.x * W;
-            const bw = b.w * W;
-            const bh = b.h * skyH;
-            const by = skyH - bh;
-            ctx.fillStyle = "rgba(22,22,35,0.9)";
-            ctx.fillRect(bx, by, bw, bh);
-            ctx.strokeStyle = "rgba(79,124,255,0.08)";
-            ctx.lineWidth = 1;
-            ctx.strokeRect(bx, by, bw, bh);
-
-            const winCols = Math.floor(bw / 12);
-            const winRows = Math.floor(bh / 18);
-            for (let r = 0; r < winRows; r++) {
-              for (let c = 0; c < winCols; c++) {
-                if (Math.random() > 0.55) {
-                  ctx.fillStyle = `rgba(79,124,255,${
-                    0.08 + Math.random() * 0.12
-                  })`;
-                  ctx.fillRect(bx + 5 + c * 12, by + 8 + r * 18, 7, 10);
-                }
-              }
-            }
-          }
-
-          ctx.fillStyle = "rgba(15,15,26,0.6)";
-          ctx.fillRect(0, skyH, W, H - skyH);
-
-          for (let g = 0; g < 4; g++) {
-            const gx = ((g + 0.5) * W) / 4;
-            ctx.beginPath();
-            ctx.moveTo(gx, skyH);
-            ctx.lineTo(gx, H);
-            ctx.strokeStyle = "rgba(255,255,255,0.03)";
-            ctx.lineWidth = 1;
-            ctx.stroke();
-          }
-
-          const rnPts = rooftopNodes.map((rn) => {
-            const b =
-              buildings.find(
-                (b2) => Math.abs(b2.x - rn.bx + b2.w / 2) < 0.08
-              ) ||
-              buildings.reduce((closest, b2) => {
-                return Math.abs(b2.x - rn.bx) < Math.abs(closest.x - rn.bx)
-                  ? b2
-                  : closest;
-              }, buildings[0]);
-            return {
-              x: rn.bx * W,
-              y: skyH - b.h * skyH - 8,
-              pulse: rn.pulse,
-            };
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const data = new FormData(form);
+        try {
+          const res = await fetch("https://formspree.io/f/YOUR_FORM_ID", {
+            method: "POST",
+            body: data,
+            headers: { Accept: "application/json" },
           });
-
-          for (let i = 0; i < rnPts.length - 1; i++) {
-            const a = rnPts[i],
-              b = rnPts[i + 1];
-            const pulse = 0.5 + 0.5 * Math.sin(t + i);
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            const cpx = (a.x + b.x) / 2;
-            const cpy = Math.min(a.y, b.y) - 40;
-            ctx.quadraticCurveTo(cpx, cpy, b.x, b.y);
-            ctx.strokeStyle = `rgba(79,124,255,${0.2 + pulse * 0.2})`;
-            ctx.lineWidth = 1.5;
-            ctx.setLineDash([5, 5]);
-            ctx.stroke();
-            ctx.setLineDash([]);
-
-            const prog = (t * 0.3 + i * 0.4) % 1;
-            const qt = prog;
-            const qx =
-              (1 - qt) * (1 - qt) * a.x +
-              2 * (1 - qt) * qt * cpx +
-              qt * qt * b.x;
-            const qy =
-              (1 - qt) * (1 - qt) * a.y +
-              2 * (1 - qt) * qt * cpy +
-              qt * qt * b.y;
-            ctx.beginPath();
-            ctx.arc(qx, qy, 3, 0, Math.PI * 2);
-            ctx.fillStyle = "rgba(45,212,191,0.9)";
-            ctx.fill();
+          if (res.ok) {
+            form.style.display = "none";
+            success.classList.add("show");
           }
-
-          for (const rn of rnPts) {
-            const pulse = 0.5 + 0.5 * Math.sin(t * 1.4 + rn.pulse);
-            ctx.beginPath();
-            ctx.arc(rn.x, rn.y, 6 + pulse * 2, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(79,124,255,0.9)`;
-            ctx.fill();
-
-            for (let ring = 1; ring <= 3; ring++) {
-              const ringPulse = (t * 0.5 + rn.pulse * 0.5 - ring * 0.3) % 1;
-              const r = 15 + ring * 12 * ringPulse;
-              const alpha = (1 - ringPulse) * 0.2;
-              ctx.beginPath();
-              ctx.arc(rn.x, rn.y, r, 0, Math.PI * 2);
-              ctx.strokeStyle = `rgba(79,124,255,${alpha})`;
-              ctx.lineWidth = 1;
-              ctx.stroke();
-            }
-          }
-
-          requestAnimationFrame(draw);
+        } catch {
+          alert(
+            "Something went wrong. Please email us at isaiah@variantnetworks.net"
+          );
         }
+      });
 
-        resize();
-        draw();
-        window.addEventListener("resize", resize);
-      })();
-
-      // ---- SCROLL ANIMATIONS ----
-      (function () {
-        const obs = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((e) => {
-              if (e.isIntersecting) {
-                e.target.classList.add("visible");
-              }
-            });
-          },
-          { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
-        );
-
-        document.querySelectorAll(".fade-up").forEach((el) => obs.observe(el));
-      })();
+      window.addEventListener("scroll", () => {
+        document.querySelector("nav").style.boxShadow =
+          window.scrollY > 40 ? "0 2px 20px rgba(0,0,0,0.08)" : "none";
+      });
     </script>
+
+    <script src="new_starryScript.js"></script>
   </body>
 </html>
